@@ -9,8 +9,42 @@
 * **HOST OS:** L4T R36.4.3 (JetPack 6.2)
 * **Model:** YOLOv11n
 
-자세한 설정 방법은 
-https://velog.io/@cint/Edge-AI-Jetson-Orin-Nano-Super-%EC%8B%A4%EC%8B%9C%EA%B0%84-%EA%B0%9D%EC%B2%B4-%ED%83%90%EC%A7%80-%EB%B0%8F-%EC%B5%9C%EC%A0%81%ED%99%94-0
+
+자세한 설정 방법은
+##### https://velog.io/@cint/Edge-AI-Jetson-Orin-Nano-Super-%EC%8B%A4%EC%8B%9C%EA%B0%84-%EA%B0%9D%EC%B2%B4-%ED%83%90%EC%A7%80-%EB%B0%8F-%EC%B5%9C%EC%A0%81%ED%99%94-1-%EC%84%B8%ED%8C%85-%EB%B0%8F-Baseline
+
+---
+
+## 데이터 다운로드
+
+mAP를 계산하기 위해서 **COCO 2017 validation** 데이터셋을 사용
+
+데이터셋 다운로드 링크 :
+
+labels & annotations : https://github.com/ultralytics/yolov5/releases/download/v1.0/coco2017labels.zip
+
+images : http://images.cocodataset.org/zips/val2017.zip
+
+YOLO 라벨은 아래 문서를 참고:
+
+https://docs.ultralytics.com/ko/datasets/detect/coco/#dataset-structure
+
+**데이터 폴더 구조**
+```
+data/
+├── images/
+│   └── val2017/
+│       ├── 000000000139.jpg
+│       └── ...
+│
+├── labels/
+│   └── val2017/
+│       ├── 000000000139.txt
+│       └── ...
+│
+└── instances_val2017.json
+```
+
 ---
 
 ## 사용법 (Usage)
