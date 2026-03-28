@@ -1,0 +1,25 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# OS 및 에디터 설정
+.DS_Store
+.vscode/
+
+# 가상환경 (Virtual Environments)
+venv/
+.venv/
+env/
+
+# AI 모델 및 데이터 (용량이 큰 파일들)
+*.pth
+*.onnx
+*.engine
+*.weights
+dataset/
+data/
+
+# Jetson 특정 로그 및 성능 도구 결과물
+jtop.log
+report_*.json
