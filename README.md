@@ -10,8 +10,26 @@
 * **Model:** YOLOv11n
 
 
-자세한 설정 방법은
+jetson 설정 방법은
 ##### https://velog.io/@cint/Edge-AI-Jetson-Orin-Nano-Super-%EC%8B%A4%EC%8B%9C%EA%B0%84-%EA%B0%9D%EC%B2%B4-%ED%83%90%EC%A7%80-%EB%B0%8F-%EC%B5%9C%EC%A0%81%ED%99%94-1-%EC%84%B8%ED%8C%85-%EB%B0%8F-Baseline
+
+
+**가상환경 생성 및 의존성 설치**
+
+uv 설치 필요
+
+```
+uv sync # Windows 환경에서.
+```
+```
+uv pip install -r requirements.txt # jetson 환경에서.
+```
+
+실행
+```
+uv run python main.py
+```
+
 
 ---
 
