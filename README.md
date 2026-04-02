@@ -27,7 +27,7 @@ uv pip install -r requirements.txt # jetson 환경에서.
 
 실행
 ```
-uv run python main.py
+uv run python3 main.py
 ```
 
 
@@ -68,7 +68,7 @@ data/
 ## 사용법 (Usage)
 
 ```bash
-python main.py [OPTIONS]
+python3 main.py [OPTIONS]
 ```
 
 ---
@@ -92,7 +92,7 @@ python main.py [OPTIONS]
 기본 실행 모드 (추론 수행)
 
 ```bash
-python main.py --mode run
+python3 main.py --mode run
 ```
 
 ---
@@ -101,7 +101,7 @@ python main.py --mode run
 latency benchmark 측정
 
 ```bash
-python main.py --mode latency
+python3 main.py --mode latency
 ```
 
 ---
@@ -110,7 +110,7 @@ python main.py --mode latency
 RAM 사용량 등 하드웨어 성능 측정
 
 ```bash
-python main.py --mode hardware
+python3 main.py --mode hardware
 ```
 
 ---
@@ -119,7 +119,7 @@ python main.py --mode hardware
 mAP (mean Average Precision) 평가
 
 ```bash
-python main.py --mode map
+python3 main.py --mode map
 ```
 
 - IoU threshold: `0.5 ~ 0.95` (0.05 간격)
@@ -132,7 +132,7 @@ python main.py --mode map
 ###  Video 파일 (기본)
 
 ```bash
-python main.py
+python3 main.py
 ```
 
 - 기본 영상: `17431598-hd_1920_1080_60fps.mp4`
@@ -142,7 +142,7 @@ python main.py
 ###  Camera 사용
 
 ```bash
-python main.py --camera 0
+python3 main.py --camera 0
 ```
 
 - `0`: 기본 웹캠
@@ -154,7 +154,7 @@ python main.py --camera 0
 ### CUDA로 실행 + 화면 출력
 
 ```bash
-python main.py --device cuda --show
+python3 main.py --device cuda --show
 ```
 
 ---
@@ -162,7 +162,7 @@ python main.py --device cuda --show
 ### Latency 측정 (500 프레임)
 
 ```bash
-python main.py --mode latency --frames 500
+python3 main.py --mode latency --frames 500
 ```
 
 ---
@@ -170,5 +170,5 @@ python main.py --mode latency --frames 500
 ### Camera 입력 + 저장 안함
 
 ```bash
-python main.py --camera 0 --nosave
+python3 main.py --camera 0 --nosave
 ```
