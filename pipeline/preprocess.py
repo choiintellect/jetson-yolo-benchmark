@@ -4,7 +4,7 @@ import cv2
 import logging
 from typing import List, Dict, Tuple
 from benchmark.timer_decorator import inference_timer
-from config import TARGET_DEVICE
+from config import TARGET_DEVICE, INPUT_IMAGE_SIZE
 
 logger = logging.getLogger(__name__)
 
@@ -31,7 +31,7 @@ def preprocess(frames: List[np.ndarray]) -> tuple[torch.Tensor, List[Dict]]:
     metadatas = []
 
     # Initialize the LetterBox transformer with the desired output shape and settings
-    letterbox = LetterBox(new_shape=(640, 640), auto=False)
+    letterbox = LetterBox(new_shape=INPUT_IMAGE_SIZE, auto=False)
 
     # Apply letterbox transformation to each frame and collect metadata
     for x in frames:

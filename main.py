@@ -11,20 +11,27 @@ parser = argparse.ArgumentParser(description='Jetson YOLOv11 Benchmarking Tool')
 
 parser.add_argument('--device', type=str, default=config.TARGET_DEVICE, help='cpu or cuda')
 parser.add_argument('--show', action='store_true', help='Show video window')
-parser.add_argument('--nosave', action='store_true', help='Disable video saving')
+parser.add_argument('--save', action='store_true', help='enable video saving')
 
 parser.add_argument('--mode', type=str, default='run', 
                     choices=['run', 'latency', 'hardware', 'map'])
 parser.add_argument('--frames', type=int, default=1000, help='Number of frames to process')
 parser.add_argument('--camera', type=int, default=None, help='Use camera input instead of video file. Provide camera index (e.g., 0 for default webcam)')
+parser.add_argument(
+    '--input_image_size', 
+    type=int, 
+    nargs=2, 
+    default=[640, 640], 
+    help='Input image size (width height)'
+)
 args = parser.parse_args()
 
 config.TARGET_DEVICE = args.device
 if args.mode == 'latency':
     config.TIMER = True
 config.SHOW_VIDEO = args.show
-if args.nosave:
-    config.SAVE_VIDEO = False
+config.SAVE_VIDEO = args.save
+config.INPUT_IMAGE_SIZE = (args.input_image_size[0] - (args.input_image_size[0] % 32), args.input_image_size[1] - (args.input_image_size[1] % 32))
 
 from pipeline.camera_connection import CameraConnection
 from pipeline.preprocess import preprocess
@@ -37,6 +44,17 @@ from benchmark.hardware_monitor import HardwareMonitor, get_ram
 
 
 logger = logging.getLogger(__name__)
+
+def print_settings():
+    logger.info("================ Settings ================\n")
+    logger.info(f"{'Target Device':<20} {config.TARGET_DEVICE}")
+    logger.info(f"{'Show Video':<20} {config.SHOW_VIDEO}")
+    logger.info(f"{'Save Video':<20} {config.SAVE_VIDEO}")
+    logger.info(f"{'Mode':<20} {args.mode}")
+    logger.info(f"{'Frames to Process':<20} {args.frames}")
+    logger.info(f"{'Camera Index':<20} {args.camera if args.camera is not None else 'Video File'}")
+    logger.info(f"{'Input Image Size':<20} {config.INPUT_IMAGE_SIZE}\n")
+
 
 def just_run(conn: CameraConnection, inferencer: PyTorchInferencer, post_processor: PostProcess, frames_to_process: int = 1000):
     '''
@@ -55,6 +73,7 @@ def just_run(conn: CameraConnection, inferencer: PyTorchInferencer, post_process
             logger.info(f"Processed {attempts} frames...")
         if attempts >= frames_to_process:
             break
+    print_settings()
     cv2.destroyAllWindows()
 
 
@@ -103,6 +122,8 @@ def bench_latencies(conn: CameraConnection, inferencer: PyTorchInferencer, post_
     jitter_inference = np.std(inference_timer.latencies['PyTorchInferencer.__call__'])
     jitter_postprocess = np.std(inference_timer.latencies['PostProcess.__call__'])
     jitter_full_pipeline = np.std(inference_timer.latencies['full_pipeline'])
+
+    print_settings()
 
     logger.info("*************** Latency Benchmark Results ***************\n")
 
@@ -182,6 +203,8 @@ def bench_hardware(conn: CameraConnection, inferencer: PyTorchInferencer, post_p
 
     stats = monitor.summary()
     
+    print_settings()
+
     logger.info("================ Hardware Stats ================\n")
 
     logger.info(f"{'GPU Util Avg':<20} {stats['gpu_util_avg']:.2f} %")
@@ -209,6 +232,7 @@ if __name__ == "__main__":
         
         for iou_threshold in np.arange(0.5, 1, 0.05):
             bench_mAP(inferencer, post_processor, calculator, iou_threshold=iou_threshold)
+        print_settings()
         calculator.print_mAPs()
     
     else:

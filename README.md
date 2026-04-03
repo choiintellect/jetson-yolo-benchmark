@@ -79,11 +79,11 @@ python3 main.py [OPTIONS]
 |--------|------|--------|-------------|
 | `--device` | str | `cpu` | 실행 디바이스 (`cpu` 또는 `cuda`) |
 | `--show` | flag | False | 영상 출력 창 표시 |
-| `--nosave` | flag | False | 결과 영상 저장 비활성화 |
+| `--save` | flag | False | 결과 영상 저장 활성화 |
 | `--mode` | str | `run` | 실행 모드 |
 | `--frames` | int | 1000 | 처리할 프레임 수 |
 | `--camera` | int | None | 카메라 입력 사용 (예: 0) |
-
+| `--input_image_size` | int int | 640 640 | 모델 입력 이미지 사이즈 |
 ---
 
 ## Modes
@@ -167,8 +167,8 @@ python3 main.py --mode latency --frames 500
 
 ---
 
-### Camera 입력 + 저장 안함
+### Camera 입력 + 결과 영상 저장 + 입력 이미지 사이즈
 
 ```bash
-python3 main.py --camera 0 --nosave
+python3 main.py --camera 0 --save --input_image_size 320 320
 ```

@@ -1,7 +1,8 @@
 TIMER = False
 TARGET_DEVICE = 'cpu'
 SHOW_VIDEO = False
-SAVE_VIDEO = True
+SAVE_VIDEO = False
+INPUT_IMAGE_SIZE = (640, 640)
 
 CLASS_NAMES = {
     0: "person",

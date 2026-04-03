@@ -210,11 +210,11 @@ class MAPCalculator:
             batch_size (int): The number of images to process in each batch during inference.
 
         '''
-        print(f"Starting prediction with batch size: {batch_size}")
+        logger.info(f"Starting prediction with batch size: {batch_size}")
 
-        print (f"Total number of images to process: {len(self.data)}")
+        logger.info(f"Total number of images to process: {len(self.data)}")
         for i in range(0, len(self.data), batch_size):
-            print(f"Processing batch {i // batch_size + 1}")
+            logger.info(f"Processing batch {i // batch_size + 1}")
             batch_data = self.data[i:i+batch_size]
 
             batch_ids = [d['file_name'] for d in batch_data]
@@ -407,7 +407,7 @@ class MAPCalculator:
         '''
         logger.info("Calculated mAP values:")
         for iou_threshold, mAP in self.mAPs.items():
-            logger.info(f"mAP@{iou_threshold}: {mAP:.4f}")
+            logger.info(f"mAP@{iou_threshold:0.2f}: {mAP:.4f}")
 
 
 def calculate_iou(box1: List, box2: List) -> float:

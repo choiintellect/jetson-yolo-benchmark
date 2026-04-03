@@ -48,7 +48,7 @@ class PyTorchInferencer:
         try:
             ram_start = get_ram()
             self.model = DetectionModel(cfg=model_path)
-            self.model.load_state_dict(torch.load(weights_path, map_location=self.device))
+            self.model.load_state_dict(torch.load(weights_path, map_location=self.device, weights_only=True))
             self.model = self.model.fuse().eval().float().to(self.device)
             ram_end = get_ram()
             self.static_memory = ram_end - ram_start
